@@ -86,6 +86,7 @@ step "review-database-changes" {
             Octopus.Action.Manual.BlockConcurrentDeployments = "False"
             Octopus.Action.Manual.Instructions = "Please review the database changes from the artifact attached to this deployment"
             Octopus.Action.Manual.ResponsibleTeamIds = "global/octopus-managers"
+            Octopus.Action.RunOnServer = "false"
         }
     }
 }
@@ -136,6 +137,7 @@ step "deploy-trident-website" {
             Octopus.Action.Package.FeedId = "octopus-server-built-in"
             Octopus.Action.Package.JsonConfigurationVariablesTargets = "appSettings.json"
             Octopus.Action.Package.PackageId = "Trident.Web"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
 
@@ -161,7 +163,7 @@ step "verify-application" {
         properties = {
             Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptBody = <<-EOT
-                Write-Host “This application has been verified.”
+                Write-Host “This application has been verified!”
                 
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
