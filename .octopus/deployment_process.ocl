@@ -173,6 +173,23 @@ step "verify-application" {
     }
 }
 
+step "update-load-ballancer" {
+    name = "Update Load Ballancer"
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                $rn = $OctopusParameters["Octopus.Release.Number"]
+                Wright-Highlight "Updated LB to point to version $rn"
+                EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool = "hosted-windows"
+    }
+}
+
 step "notify-everyone-of-deployment" {
     condition = "Always"
     name = "Notify Everyone Of Deployment"
